@@ -20,6 +20,8 @@ import Create_product from "./component/Create_product.jsx";
 import Update_Delete from "./component/Update_Delete.jsx";
 import Updateproduct from "./component/Updateproduct.jsx";
 import ContactPage from "./component/Contactpage.jsx";
+import Placeorder from "./component/Placeorder.jsx";
+import Shippinginfo from "./component/Shippinginfo.jsx";
 function App() {
   return (
     <>
@@ -42,6 +44,8 @@ function App() {
           <Route path="/update_Delete" element={<Update_Delete />} />
           <Route path="/update_Delete/update" element={<Updateproduct />} />
           <Route path="/contact" element={<ContactPage />}></Route>
+          <Route path="/place" element={<Placeorder/>}></Route>
+          <Route path="/shipinfo" element={<Shippinginfo/>}></Route>
         </Routes>
         <Footer></Footer>
       </Router>

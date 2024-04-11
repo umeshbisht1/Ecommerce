@@ -96,11 +96,11 @@ const Update_Delete = () => {
   ) : (
     <>
       {/*   product section */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6  bg-slate-400 px-3">
         {products?.map((product) => (
           <div
             key={product._id}
-            className="p-6 bg-white shadow-md rounded-lg flex flex-col justify-between"
+            className="p-6 bg-white shadow-md rounded-lg flex flex-col justify-between my-5"
           >
             {product.images[0].url && (
               <img

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 function Detailsproduct() {
+  const navigate=useNavigate();
   const location = useLocation();
   const { data } = location.state;
 
@@ -14,77 +15,59 @@ function Detailsproduct() {
   const handleBuyNow = () => {
     // Implement logic for buying the product
     console.log("Product bought");
-    navigate(`/ordernow/${product._id}`);
+    // console.log(data);
+    navigate(`/place`,{
+      state:{product:data}
+    });
   };
   return data ? (
-    <div className="container mx-auto p-4">
-      <div className="flex justify-around">
-        <div className=" flex justify-between">
-          <div className="left">
-            //place the image
-            <div className="">
-              <img src="" alt="" />
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <div className="">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAHtCmA_RepVfTf_9blQPO98NK3yYWg49VaA&usqp=CAU"
-                alt=""
-              />
-            </div>
-            <div className="">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMx58MJP772QSHRJMwSxt4A79LYvjSkp8cmg&usqp=CAU"
-                alt=""
-              />
-            </div>
-            <div className="">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuCGMl9tOzBOrxBIT5cqDo-tjztq9ns0dg6w&usqp=CAU"
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-span-1">
-          <div className="p-4 bg-gray-200 rounded-md">
-            <h2 className="text-lg font-semibold mb-2">{data.name}</h2>
-            <p className="mb-2">{data.description}</p>
-            <p className="mb-2">Price: ${data.price}</p>
-            <p className="mb-2">Category: {data.category}</p>
-            <p className="mb-2">Stock: {data.stock}</p>
-            <div className="mb-2 text-gray-500">
-              Rating:{" "}
-              <ReactStars
-                count={5}
-                // onChange={ratingChanged}
-                value={data.rating}
-                isHalf={true}
-                edit={false}
-                size={24}
-                activeColor="#ffd700"
-              />
-            </div>
-            <p className="mb-2">Number of Reviews: {data.numofdreview}</p>
-            <div className="flex justify-between mt-4">
-              <button
-                onClick={handleAddToCart}
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              >
-                Add to Cart
-              </button>
-              <button
-                onClick={handleBuyNow}
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-              >
-                Buy Now
-              </button>
-            </div>
-          </div>
-        </div>
+    <div className="container mx-auto p-8 md:p-12 lg:p-16">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+    <div className="flex flex-col md:flex-row justify-between">
+      <div className="md:mr-8">
+        <img
+          src="https://via.placeholder.com/400x400"
+          alt="Product Image"
+          className="w-full h-auto rounded-md shadow-lg"
+        />
+      </div>
+      
+      
+    </div>
+    <div className="p-6 bg-gray-100 rounded-md shadow-lg">
+      <h2 className="text-2xl font-bold mb-2">{data.name}</h2>
+      <p className="mb-4">{data.description}</p>
+      <p className="mb-2 text-lg font-medium">Price: ${data.price}</p>
+      <p className="mb-2">Category: {data.category}</p>
+      <p className="mb-2">Stock: {data.stock}</p>
+      <div className="mb-4 flex items-center text-gray-500">
+        <ReactStars
+          count={5}
+          value={data.rating}
+          isHalf={true}
+          edit={false}
+          size={24}
+          activeColor="#ffd700"
+        />
+        <span className="ml-2">({data.numofdreview} reviews)</span>
+      </div>
+      <div className="flex justify-between">
+        <button
+          onClick={handleAddToCart}
+          className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition-colors"
+        >
+          Add to Cart
+        </button>
+        <button
+          onClick={handleBuyNow}
+          className="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition-colors"
+        >
+          Buy Now
+        </button>
       </div>
     </div>
+  </div>
+</div>
   ) : (
     "Loading..."
   );
