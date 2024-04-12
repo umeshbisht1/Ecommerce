@@ -22,6 +22,7 @@ import Updateproduct from "./component/Updateproduct.jsx";
 import ContactPage from "./component/Contactpage.jsx";
 import Placeorder from "./component/Placeorder.jsx";
 import Shippinginfo from "./component/Shippinginfo.jsx";
+import Userorder from "./component/Userorder.jsx";
 function App() {
   return (
     <>
@@ -39,6 +40,7 @@ function App() {
           <Route path="/ordernow/:id" element={<Ordernow />} />
           <Route path="/product" element={<Detailsproduct />} />
           <Route path="/order-details" element={<OrderDetails />} />
+          <Route path="/userorder" element={<Userorder/>} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/create_product" element={<Create_product />} />
           <Route path="/update_Delete" element={<Update_Delete />} />

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Shippinginfo from "./Shippinginfo";
 import { useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import { button } from "@material-tailwind/react";
+import { Link, useLocation,useNavigate } from "react-router-dom";
+//import { button } from "@material-tailwind/react";
 
 const Placeorder = () => {
-  const [itemQuantity, setItemQuantity] = useState(1);
+  const navigate=useNavigate();
+  const [itemQuantity, setItemQuantity]= useState(1);
 
   const user = useSelector((state) => state.currentUser?.data);
   const [address, setaddress] = useState("");
@@ -30,20 +31,55 @@ const Placeorder = () => {
     setaddress(shippingInfo);
   };
   const [orderDetails, setorder] = useState({
-    itemPrice: product.price,
-    taxPrice: 90,
-    shippingPrice: 40,
-    total: parseInt(product.price) + 90 + 40,
+    itemprice: product.price,
+    taxprice: 90,
+    shippingprice: 40,
+    totalprice: parseInt(product.price) + 90 + 40,
   });
   const handleQuantityChange = (e) => {
     const newQuantity = parseInt(e.target.value);
-    setorder({
-      itemPrice: newQuantity * product.price,
-      taxPrice: 90,
-      shippingPrice: 40,
-      total: parseInt(newQuantity * product.price) + 90 + 40,
-    });
-    setItemQuantity(newQuantity);
+    // console.log(newQuantity);
+    setorder(prev=>({itemprice: newQuantity * product.price,
+      taxprice: 90,
+      shippingprice: 40,
+      totalprice: parseInt(newQuantity * product.price) + 90 + 40}));
+      setItemQuantity(newQuantity);
+  };
+  const place = async () => {
+    try {
+      const place = await fetch("/api/v1/ordernow", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...orderDetails,
+          orderitem: [
+            {
+              product: product._id,
+              name: product.name,
+              price: product.price,
+              image:
+                "https://wallpapers.com/images/featured/laptop-murjp1nk4lp1idlt.jpg",
+              quantity: itemQuantity,
+            },
+          ],
+          shippinginfo: {
+            ...address,
+          },
+          paymentinfo: {
+            id: "sample id",
+            status: "successed",
+          },
+        }),
+      });
+      const data = await place.json();
+      console.log(data);
+      if(user.role==="user")
+      navigate('/userorder')
+      else
+      navigate(`/order`)
+    } catch (error) {
+      console.log(`error occured bawa ${error}`);
+    }
   };
 
   return (
@@ -186,12 +222,15 @@ const Placeorder = () => {
         </div>
       )}
       {/* product details */}
-      <h1 className="font-bold mx-6 my-3"><b>Product Details</b></h1>
+      <h1 className="font-bold mx-6 my-3">
+        <b>Product Details</b>
+      </h1>
       <div className="bg-white px-6  rounded-md shadow-lg flex items-center ">
-       
         <div className="flex-1">
-          <div className=""><h3 className="text-lg font-medium mb-1">name: {product.name}</h3>
-          <p className="text-gray-500 mb-2"> Producrt id:{product._id}</p></div>
+          <div className="">
+            <h3 className="text-lg font-medium mb-1">name: {product.name}</h3>
+            <p className="text-gray-500 mb-2"> Producrt id:{product._id}</p>
+          </div>
           <div className="flex items-center justify-between">
             <p className="text-lg font-bold"> Price: {product.price}</p>
             <div className="flex items-center space-x-2">
@@ -218,24 +257,31 @@ const Placeorder = () => {
         <div className="space-y-2">
           <div className="flex justify-between">
             <p>Item Price</p>
-            <p>{orderDetails.itemPrice}</p>
+            <p>{orderDetails.itemprice}</p>
           </div>
           <div className="flex justify-between">
             <p>Tax</p>
-            <p>{orderDetails.taxPrice}</p>
+            <p>{orderDetails.taxprice}</p>
           </div>
           <div className="flex justify-between">
             <p>Shipping</p>
-            <p>{orderDetails.shippingPrice}</p>
+            <p>{orderDetails.shippingprice}</p>
           </div>
           <hr className="my-4" />
           <div className="flex justify-between font-bold text-lg">
             <p>Total</p>
-            <p>💵{orderDetails.total}</p>
+            <p>💵{orderDetails.totalprice}</p>
           </div>
         </div>
       </div>
-      <div className="text-end my-6 mr-4"><button className='py-4 px-8 rounded-lg border bg-yellow-200 font-bold'>Place Now</button></div>
+      <div className="text-end my-6 mr-4">
+        <button
+          className="py-4 px-8 rounded-lg border bg-yellow-200 font-bold"
+          onClick={place}
+        >
+          Place Now
+        </button>
+      </div>
     </>
   );
 };
