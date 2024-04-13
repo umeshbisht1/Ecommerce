@@ -46,7 +46,7 @@ const Update_Delete = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [update, setupdate] = useState(false);
-  const [page, setpage] = useState(2);
+  const [page, setpage] = useState(1);
   //fetching all the products from the server
   useEffect(() => {
     const fetchData = async () => {
@@ -102,9 +102,9 @@ const Update_Delete = () => {
             key={product._id}
             className="p-6 bg-white shadow-md rounded-lg flex flex-col justify-between my-5"
           >
-            {product.images[0].url && (
+            {product.images && (
               <img
-                src={product.images[0].url}
+                src={product.images}
                 alt={product.name.toUpperCase()}
                 className="w-full h-48 object-cover rounded-t-lg"
               />
@@ -115,7 +115,7 @@ const Update_Delete = () => {
               <p className="mb-2 text-lg font-bold">₹{product.price}</p>
 
               <p className="mb-2 text-gray-500">Category: {product.category}</p>
-              <p className="mb-2 text-gray-500">Stock: {product.stock}</p>
+              <p className="mb-2 text-gray-500">Stock: {product.stock<=0?<h1 className="text-red-600 font-bold">Out of Stock</h1>:product.stock}</p>
               <p className="mb-2 text-gray-500">
                 Rating:{" "}
                 <ReactStars

@@ -1,72 +1,65 @@
 import mongoose from "mongoose";
-const productschema=mongoose.Schema({
-    name:{
-        type:String,
-        required:[true,"please enter the name"]
+const productschema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "please enter the name"],
     },
-    description:{
-        type:String,
-        required:[true,"please enter the description"]
+    description: {
+      type: String,
+      required: [true, "please enter the description"],
     },
-    price:{
-        type:Number,
-        required:[8,"enter the price:"]
+    price: {
+      type: Number,
+      required: [8, "enter the price:"],
+    },
+    rating: {
+      type: Number,
+      default: 0,
+    },
+    images: {
+      type: String,
+      required: true,
+    },
+    category: {
+      type: String,
+      required: [true, "category must be required"],
+    },
+    stock: {
+      type: Number,
+      required: [true, "please enter the stock"],
+      maxLength: 4,
+      default: 1,
+    },
+    numofdreview: {
+      type: Number,
+      default: 0,
+    },
+    reviews: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
 
-    },
-    rating:{
-        type:Number,
-        default:0,
-    },
-    images:[
-        {
-            public_id:{
-                type:String,
-                required:true,
-            },
-            url:{
-                type:String,
-                required:true,
-
-            }
-        }
+        name: {
+          type: String,
+        },
+        rating: {
+          type: Number,
+        },
+        comment: {
+          type: String,
+        },
+      },
     ],
-    category:{
-        type:String,
-        required:[true,"category must be required"],
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
-    stock:{
-        type:Number,
-        required:[true,"please enter the stock"],
-        maxLength:4,
-        default:1,
-    },
-    numofdreview:{
-        type:Number,
-        default:0
-    },
-    reviews:[
-        {
-            user:{
-                type:mongoose.Schema.Types.ObjectId,
-                ref:"User",
-                required:true,
-            },
-          
-            name:{
-                type:String,  
-            },
-            rating:{
-                type:Number,  
-            },
-            comment:{
-                type:String,
-            }
-        }
-    ],
-    user:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
-        required:true,
-    },
-},{timestamps: true });
-export const Product=mongoose.model("Product",productschema);
+  },
+  { timestamps: true }
+);
+export const Product = mongoose.model("Product", productschema);

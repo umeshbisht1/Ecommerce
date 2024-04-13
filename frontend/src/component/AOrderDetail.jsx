@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const OrderDetails = ({ order, index }) => {
   const [_id, setOrderId] = useState(order._id);
@@ -16,9 +16,23 @@ const OrderDetails = ({ order, index }) => {
   const [updatedAt, setUpdatedAt] = useState(order.updatedAt);
   const [user, setUserId] = useState(order.user);
 
-  const handleMarkAsDelivered = () => {
+  const handleMarkAsDelivered = async (e) => {
     // Update the order status in your backend system
-    updateOrderStatus('Delivered');
+    e.preventDefault();
+    try {
+      const changed = await fetch(`/api/v1/admin/updatestatus/${order._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          status: "Delivered",
+        }),
+      });
+      const res = await changed.json();
+      console.log(res);
+      if (res.success == true) updateOrderStatus("Delivered");
+    } catch (error) {
+      console.log(`admin error occured ${error}`);
+    }
   };
 
   const updateOrderStatus = (newStatus) => {
@@ -31,22 +45,20 @@ const OrderDetails = ({ order, index }) => {
     <div className="bg-white shadow-md rounded-lg overflow-hidden mb-8">
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-blue-700"><b>Order Details:</b> {index + 1}</h2>
+          <h2 className="text-xl font-semibold text-blue-700">
+            <b>Order Details:</b> {index + 1}
+          </h2>
           <div className="flex items-center">
-            {orderstatus === 'Delivered' ? (
+            {orderstatus === "Delivered" ? (
               <div className="relative">
                 <div className="absolute inset-0 bg-green-500 rounded-md opacity-25 animate-ping"></div>
-                <button
-                  className="px-4 py-2 bg-green-500 text-white font-medium rounded-md hover:bg-green-600"
-                >
+                <button className="px-4 py-2 bg-green-500 text-white font-medium rounded-md hover:bg-green-600">
                   Delivered
                 </button>
               </div>
             ) : (
               <>
-                <button
-                  className="px-4 py-2 bg-yellow-500 text-white font-medium rounded-md hover:bg-yellow-600 mr-2"
-                >
+                <button className="px-4 py-2 bg-yellow-500 text-white font-medium rounded-md hover:bg-yellow-600 mr-2">
                   Processing
                 </button>
                 <button
@@ -84,7 +96,9 @@ const OrderDetails = ({ order, index }) => {
           </div>
         </div>
         <div className="mt-6">
-          <h3 className="text-lg font-semibold mb-2 text-blue-700">Shipping Information</h3>
+          <h3 className="text-lg font-semibold mb-2 text-blue-700">
+            Shipping Information
+          </h3>
           <p className="text-gray-600">
             <strong>Address:</strong> {shippinginfo.address}
           </p>
@@ -97,7 +111,9 @@ const OrderDetails = ({ order, index }) => {
         </div>
         {paymentinfo && (
           <div className="mt-6">
-            <h3 className="text-lg font-semibold mb-2 text-blue-700">Payment Information</h3>
+            <h3 className="text-lg font-semibold mb-2 text-blue-700">
+              Payment Information
+            </h3>
             <p className="text-gray-600">
               <strong>Payment ID:</strong> {paymentinfo.id}
             </p>
@@ -112,5 +128,3 @@ const OrderDetails = ({ order, index }) => {
 };
 
 export default OrderDetails;
-
-

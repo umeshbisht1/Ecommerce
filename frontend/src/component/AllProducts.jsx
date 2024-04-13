@@ -6,7 +6,7 @@ import ProductCard from './layout/header/ProductCard';
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [page, setpage] = useState(2);
+  const [page, setpage] = useState(1);
   const increment = () => {
     setpage((prev) => prev + 1);
   };

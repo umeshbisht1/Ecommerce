@@ -71,6 +71,7 @@ const adminallorders = asyncHandler(async (req, res, next) => {
 });
 const changestatus = asyncHandler(async (req, res, next) => {
   const order = await Order.findById(req.params.id);
+  //console.log(order);
   if (!order) {
     return next(new apierror(404, "product not found"));
   }
@@ -80,16 +81,18 @@ const changestatus = asyncHandler(async (req, res, next) => {
   order.orderitem.forEach(async (order) => {
     await updatestock(order.product, order.quantity);
   });
+  console.log(req.body.status);
   order.orderstatus = req.body.status;
   if (req.body.status == "Delivered") order.deliveredat = Date.now();
   await order.save({ validateBeforeSave: false });
+  console.log(order);
   res.status(200).json(new apiresponse(200, "order status has been changed"));
 });
 // update stock:::
 async function updatestock(id, quantity) {
   const product = await Product.findById(id);
   product.stock -= quantity;
-  product.save({ validateBeforeSave: false });
+  await product.save({ validateBeforeSave: false });
 }
 const deltedorder = asyncHandler(async (req, res, next) => {
   await Order.deleteOne({ _id: req.params.id });

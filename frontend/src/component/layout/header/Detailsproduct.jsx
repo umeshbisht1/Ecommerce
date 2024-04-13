@@ -24,11 +24,11 @@ function Detailsproduct() {
     <div className="container mx-auto p-8 md:p-12 lg:p-16">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
     <div className="flex flex-col md:flex-row justify-between">
-      <div className="md:mr-8">
+      <div className="md:mr-8 ">
         <img
-          src="https://via.placeholder.com/400x400"
+          src={data.images}
           alt="Product Image"
-          className="w-full h-auto rounded-md shadow-lg"
+          className="w-full h-full rounded-md shadow-lg"
         />
       </div>
       
@@ -37,7 +37,7 @@ function Detailsproduct() {
     <div className="p-6 bg-gray-100 rounded-md shadow-lg">
       <h2 className="text-2xl font-bold mb-2">{data.name}</h2>
       <p className="mb-4">{data.description}</p>
-      <p className="mb-2 text-lg font-medium">Price: ${data.price}</p>
+      <p className="mb-2 text-lg font-medium">Price: {data.price}</p>
       <p className="mb-2">Category: {data.category}</p>
       <p className="mb-2">Stock: {data.stock}</p>
       <div className="mb-4 flex items-center text-gray-500">

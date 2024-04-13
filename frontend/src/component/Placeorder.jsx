@@ -30,6 +30,7 @@ const Placeorder = () => {
   const add = () => {
     setaddress(shippingInfo);
   };
+  console.log(product.images);
   const [orderDetails, setorder] = useState({
     itemprice: product.price,
     taxprice: 90,
@@ -57,8 +58,7 @@ const Placeorder = () => {
               product: product._id,
               name: product.name,
               price: product.price,
-              image:
-                "https://wallpapers.com/images/featured/laptop-murjp1nk4lp1idlt.jpg",
+              image:product.images,
               quantity: itemQuantity,
             },
           ],

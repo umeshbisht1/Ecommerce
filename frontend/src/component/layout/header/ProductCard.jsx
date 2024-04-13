@@ -18,9 +18,9 @@ const ProductCard = ({ product }) => {
     key={product._id}
     className="p-6 bg-white shadow-md rounded-lg flex flex-col justify-between mx-9 my-4"
   >
-    {product.images[0].url && (
+    {product.images && (
       <img
-        src={product.images[0].url}
+        src={product.images}
         alt={product.name.toUpperCase()}
         className="w-full h-48 object-cover rounded-t-lg"
       />
@@ -31,7 +31,7 @@ const ProductCard = ({ product }) => {
       <p className="mb-2 text-lg font-bold">₹{product.price}</p>
 
       <p className="mb-2 text-gray-500">Category: {product.category}</p>
-      <p className="mb-2 text-gray-500">Stock: {product.stock}</p>
+      <p className="mb-2 text-gray-500">Stock: {product.stock<=0?<h1 className="text-red-600 font-bold">Out of Stock</h1>:product.stock}</p>
       <div className="mb-2 text-gray-500">
         Rating:{" "}
         <ReactStars
@@ -49,7 +49,12 @@ const ProductCard = ({ product }) => {
       {/* Add to Cart, Buy Now buttons, etc. */}
       <div className="mt-4 flex justify-between items-center gap-3">
         <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Add to Cart</button>
-        <button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700" onClick={go}>Buy Now</button>
+        {
+          product.stock<=0?<button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-red-700" >Notify me</button>
+          :<button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700" onClick={go}>Buy Now</button>
+        }
+        
+        
       </div>
     </div>
     
