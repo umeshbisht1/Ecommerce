@@ -3,13 +3,27 @@ import ReactStars from "react-rating-stars-component";
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import {setvalue} from '../../../Store/Addcartslice.js'
+import axios from "axios";
 const ProductCard = ({ product }) => {
+  const data = useSelector((state) => state.userReducer?.currentUser?.data)
   const navigate=useNavigate();
-  
+  const dispatch=useDispatch();
   const go=()=>{
    navigate(`/product`,{
     state: { data: product },
   })
+  }
+  const add=async(product)=>{
+     if(!data)
+     return ;
+    await axios.post('/api/v1/addtocart',product).then(res=>{
+        dispatch(setvalue(res.data.data.cart.length))
+    }).catch(err=>console.log(err))
+   
+    
   }
   
   return (
@@ -48,7 +62,7 @@ const ProductCard = ({ product }) => {
 
       {/* Add to Cart, Buy Now buttons, etc. */}
       <div className="mt-4 flex justify-between items-center gap-3">
-        <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Add to Cart</button>
+        <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700" onClick={()=>add(product)}>Add to Cart</button>
         {
           product.stock<=0?<button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-red-700" >Notify me</button>
           :<button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700" onClick={go}>Buy Now</button>

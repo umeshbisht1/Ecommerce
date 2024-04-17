@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { signInFailure,signInSuccess,signInStart} from '../Store/createslice.js'
+import { setvalue } from '../Store/Addcartslice.js';
 import {useNavigate} from 'react-router-dom'
 import { Link } from 'react-router-dom';
 
@@ -24,16 +25,17 @@ function Login() {
           body:JSON.stringify(formdata)
         })
         const data=await response.json();
-        
+        //console.log(data);
         if(data.success===false)
       {
         //console.log(data.message);
         seterror(data.message)
         dispatch(signInFailure(data.message));
-        
       }
        else
        {
+        
+        dispatch(setvalue(data.data.cart.length))
         dispatch(signInSuccess(data));
         
         navigate("/")

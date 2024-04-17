@@ -7,7 +7,7 @@ import {useSelector,useDispatch} from 'react-redux'
 import { logoutSuccess,logoutFailure,logoutStart } from "../Store/createslice";
 const ProfileDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const data = useSelector((state) => state.currentUser?.data);
+  const data = useSelector((state) => state.userReducer?.currentUser?.data)
   const dispatch=useDispatch();
   const navigate=useNavigate()
   const toggleDropdown = () => {

@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutFailure,logoutStart,logoutSuccess } from '../Store/createslice.js';
+import { setvalue } from '../Store/Addcartslice.js';
 function Logout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function Logout() {
       try {
         const data = await axios.post("/api/v1/logout");
         dispatch(logoutSuccess(data))
+        dispatch(setvalue(0))
        
       } catch (error) {
         dispatch(logoutFailure(error.mesage))

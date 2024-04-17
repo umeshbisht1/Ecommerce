@@ -4,6 +4,7 @@ import { Schema } from "mongoose";
 import bcrypt from 'bcrypt'
 import Jwt from "jsonwebtoken"
 import crypto from 'crypto'
+import { type } from "os";
 const userschema = new Schema({
     name: {
         type: String,
@@ -40,6 +41,16 @@ const userschema = new Schema({
         type: String,
         default:"user"
     },
+    cart:[
+        {
+           product:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Product"
+           },
+           
+
+        }
+    ],
     resetPasswordToken:String,
     resetpasswordExpire:Date,
 }, { timestamps: true });

@@ -23,6 +23,7 @@ import ContactPage from "./component/Contactpage.jsx";
 import Placeorder from "./component/Placeorder.jsx";
 import Shippinginfo from "./component/Shippinginfo.jsx";
 import Userorder from "./component/Userorder.jsx";
+import Cart from "./component/Cart.jsx";
 function App() {
   return (
     <>
@@ -35,6 +36,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/all-products" element={<AllProducts />} />
           <Route path="/order" element={<Orders />} />
+          <Route path="/cart" element={<Cart/>} />
           <Route path="/search" element={<Search />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/ordernow/:id" element={<Ordernow />} />
