@@ -10,6 +10,16 @@ function Cart() {
   const data = useSelector((state) => state.userReducer?.currentUser?.data)
   
   const[product,setproduct]=useState([]);
+  const remove=async(id)=>{
+    console.log(id);
+    await axios.put(`/api/v1/removecart/${id}`)
+        .then(function (response) {
+           console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
   useEffect(() => {
     const fetchdata=async()=>{
       await axios.get(`/api/v1/getcart2`)
@@ -23,7 +33,7 @@ function Cart() {
         });
     }
     fetchdata();
-  }, []);
+  }, [remove]);
   
   return <>
   {
@@ -60,7 +70,7 @@ function Cart() {
                
                <div className="flex  justify-between items-center">
                 <p className="text-2xl font-bold">Price:{product.cartProducts[0].price}</p>
-                 <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                 <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={()=>remove(product.cartProducts[0]._id)}>
                    🗑️✂️
                  </button>
               

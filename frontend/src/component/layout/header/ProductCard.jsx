@@ -64,7 +64,7 @@ const ProductCard = ({ product }) => {
       <div className="mt-4 flex justify-between items-center gap-3">
         <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700" onClick={()=>add(product)}>Add to Cart</button>
         {
-          product.stock<=0?<button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-red-700" >Notify me</button>
+          product.stock<=0?<button className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700" >Notify me</button>
           :<button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700" onClick={go}>Buy Now</button>
         }
         

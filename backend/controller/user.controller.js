@@ -229,6 +229,12 @@ const addtocart = asyncHandler(async (req, res, next) => {
     .status(403)
     .json(new apiresponse(200, "product  not added  to cart "));
 });
+const removecart=asyncHandler(async(req,res,next)=>{
+  const user=req.user;
+  user.cart=user.cart.filter(item => item._id.toString() !== req.params.id)
+  await user.save({validateBeforeSave:false});
+  return res.json({data:"removed successfully",statuscode:200});
+})
 const deleteuser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) {
@@ -241,6 +247,7 @@ const deleteuser = asyncHandler(async (req, res, next) => {
 });
 
 export {
+  removecart,
   Register,
   Loginuser,
   logout,
