@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 function UserDetails() {
-  const user = useSelector((state) => state.currentUser?.data);
+  const user = useSelector((state) => state.userReducer?.currentUser?.data)
   const navigate=useNavigate();
   const updateAccount=async()=>{
     

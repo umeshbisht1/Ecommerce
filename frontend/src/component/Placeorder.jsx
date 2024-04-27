@@ -8,7 +8,7 @@ const Placeorder = () => {
   const navigate=useNavigate();
   const [itemQuantity, setItemQuantity]= useState(1);
 
-  const user = useSelector((state) => state.currentUser?.data);
+  const user = useSelector((state) => state.userReducer?.currentUser?.data)
   const [address, setaddress] = useState("");
   const location = useLocation();
   const { product } = location.state;

@@ -5,7 +5,7 @@ import OrderDetails from './OrderDetails';
 
 const Userorder = () => {
   const [orders, setOrders] = useState([]);
-  const user = useSelector((state) => state.currentUser?.data);
+  const user = useSelector((state) => state.userReducer?.currentUser?.data)
 
   useEffect(() => {
     const fetchorder = async () => {
