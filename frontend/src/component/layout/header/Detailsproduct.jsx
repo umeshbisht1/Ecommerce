@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
+import axios from "axios";
+import { setvalue } from "../../../Store/Addcartslice";
+import { useDispatch } from "react-redux";
 function Detailsproduct() {
   const navigate=useNavigate();
   const location = useLocation();
   const { data } = location.state;
-
+const dispatch=useDispatch();
   // Empty dependency array ensures the effect runs only once
-  const handleAddToCart = () => {
-    // Implement logic for adding product to cart
-    console.log("Product added to cart");
+  const handleAddToCart = async(data) => {
+    if(!data)
+      return ;
+     await axios.post('/api/v1/addtocart',data).then(res=>{
+         dispatch(setvalue(res.data.data.cart.length))
+     }).catch(err=>console.log(err))
+    
   };
 
   const handleBuyNow = () => {
@@ -53,7 +60,7 @@ function Detailsproduct() {
       </div>
       <div className="flex justify-between">
         <button
-          onClick={handleAddToCart}
+          onClick={()=>handleAddToCart(data)}
           className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition-colors"
         >
           Add to Cart

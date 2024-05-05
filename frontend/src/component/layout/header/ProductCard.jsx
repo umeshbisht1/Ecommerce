@@ -25,7 +25,6 @@ const ProductCard = ({ product }) => {
    
     
   }
-  
   return (
     <>
     <div

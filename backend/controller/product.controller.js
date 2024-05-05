@@ -8,7 +8,7 @@ import {cloudinaryupdate } from "../utils/cloudinary.js";
 //admin route:
 const createproduct = asyncHandler(async (req, res, next) => {
   req.body.user = req.user._id;
-  console.log(req.file);
+  //console.log(req.file);
 
   if (req.file) {
     try {
