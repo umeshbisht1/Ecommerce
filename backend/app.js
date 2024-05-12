@@ -16,6 +16,7 @@ app.use(express.static("uploads"));
 app.use("/api/v1", router);
 app.use("/api/v1", routeruser);
 app.use("/api/v1", orderrouter);
+
 app.get("/api/details", async (req, res) => {
   let c = 0;
   let total = 0;
