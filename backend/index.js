@@ -12,9 +12,9 @@ import path from 'path'
 import dotenv from 'dotenv'
 import { connectdatabase } from './config/database.js'
 import { v2 as cloudinary } from 'cloudinary';
-const  _dirname=path.resolve();
-const app = express();
 
+const app = express();
+const  __dirname=path.resolve();
 
 dotenv.config({
     path:"backend/.env"
@@ -39,32 +39,32 @@ app.get("/",(req,res)=>{
 app.use("/api/v1", router);
 app.use("/api/v1", routeruser);
 app.use("/api/v1", orderrouter);
-app.use(express.static(path.join(_dirname,'/frontend/dist')))
-// app.get("/api/details", async (req, res) => {
+app.use(express.static(path.join(__dirname,'/frontend/dist')))
+app.get("/api/details", async (req, res) => {
     
-//     let c = 0;
-//     let total = 0;
-//     let user=0;
-//     let product=0;
-//     try {
-//       user = await User.countDocuments();
-//       product = await Product.countDocuments();
-//       const order = await Order.find({});
+    let c = 0;
+    let total = 0;
+    let user=0;
+    let product=0;
+    try {
+      user = await User.countDocuments();
+      product = await Product.countDocuments();
+      const order = await Order.find({});
   
-//       //orderstatus: 'Delivered',
-//       order.map((item) => {
-//         if (item.orderstatus == "Delivered") c++;
-//         total++;
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//      const profit=await getprofit();
+      //orderstatus: 'Delivered',
+      order.map((item) => {
+        if (item.orderstatus == "Delivered") c++;
+        total++;
+      });
+    } catch (error) {
+      console.log(error);
+    }
+     const profit=await getprofit();
     
-//     return res.json({ tuser: user, tproduct:product, order: [c, total - c],profit });
-//   });
+    return res.json({ tuser: user, tproduct:product, order: [c, total - c],profit });
+  });
 app.get('*',(req,res)=>{
-    res.sendFile(path.join(_dirname,'frontend','dist','index.html'))
+    res.sendFile(path.join(__dirname,'frontend','index.html'))
 })
 
 
