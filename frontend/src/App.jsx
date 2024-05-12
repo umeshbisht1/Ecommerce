@@ -24,6 +24,7 @@ import Placeorder from "./component/Placeorder.jsx";
 import Shippinginfo from "./component/Shippinginfo.jsx";
 import Userorder from "./component/Userorder.jsx";
 import Cart from "./component/Cart.jsx";
+import Dashboard from "./component/layout/Dashboard.jsx";
 function App() {
   return (
     <>
@@ -50,6 +51,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />}></Route>
           <Route path="/place" element={<Placeorder/>}></Route>
           <Route path="/shipinfo" element={<Shippinginfo/>}></Route>
+          <Route path="/dashboard" element={<Dashboard/>}></Route>
         </Routes>
         <Footer></Footer>
       </Router>

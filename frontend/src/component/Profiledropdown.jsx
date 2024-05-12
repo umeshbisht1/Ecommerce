@@ -48,14 +48,15 @@ const ProfileDropdown = () => {
             </Link>
           </button>
 
-          <button className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full text-left">
-            <Link to="" className="block w-full">
-              Setting
-            </Link>
-          </button>
+        
          
           {
             data.role==="admin"?(<div>
+               <button className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full text-left">
+            <Link to="/dashboard" className="block w-full">
+              Dashboard
+            </Link>
+          </button>
                <button className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full text-left">
             <Link to="/order" className="block w-full">
               Admin_Order

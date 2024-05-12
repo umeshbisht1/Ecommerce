@@ -18,6 +18,7 @@ cloudinary.config({
 app.get("/",(req,res)=>{
     res.send("its okey bawa")
 })
+
 const server=app.listen(process.env.PORT||3000,()=>{
     console.log(`server at ${process.env.PORT}`);
 })
