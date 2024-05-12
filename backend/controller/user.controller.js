@@ -31,7 +31,6 @@ const Loginuser = asyncHandler(async (req, res, next) => {
     return next(new apierror(404, "user not found"));
   }
   const check = await user.iscorrect(passward);
-  //console.log(check);
   if (!check) {
     return next(new apierror(404, "invalid username and password"));
   }
