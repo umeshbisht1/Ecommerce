@@ -8,7 +8,8 @@ import { Order } from "./models/order.model.js";
 import { User } from "./models/user.model.js";
 import { Product } from "./models/product.model.js";
 import getprofit from "./utils/getprofit.js";
-
+import path from 'path'
+const  _dirname=path.resolve();
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -16,7 +17,10 @@ app.use(express.static("uploads"));
 app.use("/api/v1", router);
 app.use("/api/v1", routeruser);
 app.use("/api/v1", orderrouter);
-
+app.use(express.static(path.join(_dirname,'/frontend/dist')))
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(_dirname,'frontend',"dist",'index.html'))
+})
 app.get("/api/details", async (req, res) => {
   let c = 0;
   let total = 0;

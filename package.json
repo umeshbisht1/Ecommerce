@@ -4,10 +4,9 @@
   "main": "backend/index.js",
   "type": "module",
   "scripts": {
-   
-    "start": "node backend/index.js",
     "dev": "nodemon backend/index.js",
-    "build":"npm install && npm install --prefix  frontend  && npm run bulid --prefix frontend"
+    "start": "node backend/index.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "",
   "license": "ISC",
