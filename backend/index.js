@@ -39,7 +39,7 @@ app.get("/",(req,res)=>{
 app.use("/api/v1", router);
 app.use("/api/v1", routeruser);
 app.use("/api/v1", orderrouter);
-app.use(express.static(path.join(__dirname,'/frontend/dist')))
+app.use(express.static(path.join(__dirname,'/frontend')))
 app.get("/api/details", async (req, res) => {
     
     let c = 0;
