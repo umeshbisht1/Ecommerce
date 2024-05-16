@@ -12,9 +12,10 @@ import path from 'path'
 import dotenv from 'dotenv'
 import { connectdatabase } from './config/database.js'
 import { v2 as cloudinary } from 'cloudinary';
+import cors from 'cors'
 
 const app = express();
-const  __dirname=path.resolve();
+
 
 dotenv.config({
     path:"backend/.env"
@@ -30,6 +31,7 @@ const server=app.listen(process.env.PORT||3000,()=>{
     console.log(`server at ${process.env.PORT}`);
 })
 app.use(express.json());
+app.use(cors());
 app.use(cookieParser());
 app.use(express.static("uploads"));
 app.get("/",(req,res)=>{
@@ -39,7 +41,7 @@ app.get("/",(req,res)=>{
 app.use("/api/v1", router);
 app.use("/api/v1", routeruser);
 app.use("/api/v1", orderrouter);
-app.use(express.static(path.join(__dirname,'/frontend')))
+// app.use(express.static(path.join(__dirname,'/frontend')))
 app.get("/api/details", async (req, res) => {
     
     let c = 0;
@@ -63,9 +65,9 @@ app.get("/api/details", async (req, res) => {
     
     return res.json({ tuser: user, tproduct:product, order: [c, total - c],profit });
   });
-app.get('*',(req,res)=>{
-    res.sendFile(path.join(__dirname,'frontend','index.html'))
-})
+// app.get('*',(req,res)=>{
+//     res.sendFile(path.join(__dirname,'frontend','index.html'))
+// })
 
 
 
