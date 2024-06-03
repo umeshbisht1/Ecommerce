@@ -31,7 +31,10 @@ const server=app.listen(process.env.PORT||3000,()=>{
     console.log(`server at ${process.env.PORT}`);
 })
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://ecommerce-frontend-three-nu.vercel.app',
+  credentials: true
+}));
 app.use(cookieParser());
 app.use(express.static("uploads"));
 app.get("/",(req,res)=>{
@@ -65,13 +68,6 @@ app.get("/api/details", async (req, res) => {
     
     return res.json({ tuser: user, tproduct:product, order: [c, total - c],profit });
   });
-// app.get('*',(req,res)=>{
-//     res.sendFile(path.join(__dirname,'frontend','index.html'))
-// })
-
-
-
-
 app.use(errorHandler); 
 process.on("unhandledRejection",(err)=>{
     console.log(`error ${err.message}`);
